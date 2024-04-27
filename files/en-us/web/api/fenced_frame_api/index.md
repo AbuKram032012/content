@@ -17,7 +17,7 @@ One major source of [privacy](/en-US/docs/Web/Privacy) and [security](/en-US/doc
 
 The embedding document can also use scripting to read various forms of information from the `<iframe>` — for example you can potentially get significant tracking/fingerprinting data from reading the embedded URL from the `src` property, especially if it contains [URL parameters](/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web#query). The `<iframe>` can also access the embedding context's DOM, and vice versa.
 
-Most modern browsers are working on mechanisms to partition storage so that cookie data can no longer be used for tracking (for example see [Cookies Having Independent Partitioned State (CHIPS)](/en-US/docs/Web/Privacy/Partitioned_cookies) or [Firefox State Partitioning](/en-US/docs/Web/Privacy/State_Partitioning)).
+Most modern browsers are working on mechanisms to partition storage so that cookie data can no longer be used for tracking (for example see [Cookies Having Independent Partitioned State (CHIPS)](/en-US/docs/Web/Privacy/Privacy_sandbox/Partitioned_cookies) or [Firefox State Partitioning](/en-US/docs/Web/Privacy/State_Partitioning)).
 
 `<fencedframe>` elements aim to solve another piece of this puzzle — they are very similar to `<iframe>`s in form and function, except that:
 
@@ -89,7 +89,7 @@ Supports-Loading-Mode: fenced-frame
 Other effects of fenced frames on HTTP headers are as follows:
 
 - [User-agent client hints](/en-US/docs/Web/HTTP/Client_hints#user-agent_client_hints) are not available inside fenced frames because they rely on [permissions policy](/en-US/docs/Web/HTTP/Permissions_Policy) delegation, which could be used to leak data.
-- Strict [`Cross-Origin-Opener-Policy`](/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy) settings are enforced on new browsing contexts opened from inside frenced frames, otherwise they could be used to leak information to other origins. Any new window opened from inside a fenced frame will have [`rel="noopener"`](/en-US/docs/Web/HTML/Attributes/rel/noopener) and `Cross-Origin-Opener-Policy: same-origin` set to ensure that {{domxref("Window.opener")}} returns `null` and place it in its own browsing context group.
+- Strict [`Cross-Origin-Opener-Policy`](/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy) settings are enforced on new browsing contexts opened from inside fenced frames, otherwise they could be used to leak information to other origins. Any new window opened from inside a fenced frame will have [`rel="noopener"`](/en-US/docs/Web/HTML/Attributes/rel/noopener) and `Cross-Origin-Opener-Policy: same-origin` set to ensure that {{domxref("Window.opener")}} returns `null` and place it in its own browsing context group.
 - [`Content-Security-Policy: fenced-frame-src`](/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/fenced-frame-src) has been added for specifying valid sources for nested browsing contexts loaded into `<fencedframe>` elements.
 - [`Content-Security-Policy: sandbox`](/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/sandbox) custom settings cannot be inherited by fenced frames, to mitigate privacy issues. For a fenced frame to load, you need to specify no `sandbox` CSP (which implies the below values), or specify the following sandbox values:
   - `allow-same-origin`
